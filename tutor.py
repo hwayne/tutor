@@ -30,7 +30,8 @@ class Tutor():
 
     def buildErrorTree(self):
         operrors = errors.operror(self.tokenstring)
-        for elem in operrors:
+        assocerrors = errors.assocerror(self.tokenstring)
+        for elem in operrors+assocerrors:
             wronganswer = self.solve(elem[0])
             if wronganswer != self.solution and wronganswer not in self.errorlist.keys():
                 self.errorlist[wronganswer] = elem
@@ -60,8 +61,8 @@ class Tutor():
 if __name__ == "__main__":
     T = Tutor()
     #T.setup(raw_input("Enter arithmatic problem: "))
-    print "Problem: 4+5-7"
-    T.setup("4+5-7")
+    print "Problem: 5+3"
+    T.setup("5+3")
     guess = int(raw_input("Enter solution: "))
     
     T.giveAnswer(guess)
