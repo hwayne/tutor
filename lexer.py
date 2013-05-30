@@ -7,6 +7,14 @@ class Lexer():
         self.tokendict = tokendict
         pass
 
+#Replaces appropriate MINUSes with NEGs.
+    def clean(self, s):
+        temp = s[:]
+        for i, token in enumerate(s):
+            if(token == "MINUS") and (i == 0 or not(s[-i].isdigit() or s[-i] == "RPAREN")): #Holy SHIT.
+                temp[i] = "NEG"
+        return temp
+
     def lexString(self, s):
        tokens = []
        temp = ""
@@ -22,7 +30,7 @@ class Lexer():
                temp = ""
            temp += elem
        #tokens.append(self.tokendict[temp[0]]) #edge case
-       return tokens
+       return self.clean(tokens)
 
 if __name__ == "__main__":
     

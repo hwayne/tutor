@@ -42,3 +42,14 @@ def assocerror(problem):
             pos = x+1
     return newproblems
     
+#Create space of all possible negative removals
+def negerror(problem):
+    newproblems = []
+    for pos, elem in enumerate(problem):
+        if elem == "NEG":
+            temp = copy(problem)
+            temp.pop(pos)
+            newproblems.append((temp,"dropped negative sign"))
+            newproblems += negerror(temp) #Recursive, get all space
+    return newproblems
+

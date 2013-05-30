@@ -14,10 +14,10 @@ class TestLexer(unittest.TestCase):
         self.assertEqual(self.L.lexString("+"), ["PLUS"])
 
     def testLexTwo(self):
-        self.assertEqual(self.L.lexString("+-"), ["PLUS", "MINUS"])
+        self.assertEqual(self.L.lexString("+*"), ["PLUS", "TIMES"])
 
     def testLexGreedy(self):
-        self.assertEqual(self.L.lexString("++-"), ["PLUSPLUS", "MINUS"])
+        self.assertEqual(self.L.lexString("++*"), ["PLUSPLUS", "TIMES"])
 
     def testLexDigit(self):
         self.assertEqual(self.L.lexString("113"), ["113"])
@@ -25,6 +25,13 @@ class TestLexer(unittest.TestCase):
     def testLexEqn(self):
         self.assertEqual(self.L.lexString("23+45"), ["23", "PLUS", "45"])
 
+    def testClean(self):
+        self.assertEqual(self.L.lexString("-1"), ["NEG", "1"])
+    
+    def testNotClean(self):
+        self.assertEqual(self.L.lexString("6*1-1"),['6', 'TIMES', '1', 'MINUS', '1'])
+
+#END tests
 class TestParser(unittest.TestCase):
   
     #def setUp(self):

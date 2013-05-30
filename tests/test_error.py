@@ -2,7 +2,7 @@ import unittest
 import errors
 import tokens
 
-class TestLexer(unittest.TestCase):
+class TestError(unittest.TestCase):
    
     def setUp(self):
         pass
@@ -41,5 +41,11 @@ class TestLexer(unittest.TestCase):
         variants = errors.assocerror(["8", "MINUS", "4", "MINUS", "2", "MINUS", "1"])
         self.assertIn(["8", "MINUS", "LPAREN", "4", "MINUS", "2", "RPAREN", "MINUS", "1"], [x[0] for x in variants])
 
+    def testNegWalk(self):
+        
+        variants = errors.negerror(["NEG", "1", "PLUS", "NEG", '2'])
+        self.assertIn(["1", "PLUS", '2'], [x[0] for x in variants])
+        self.assertIn(["NEG", "1", "PLUS", '2'], [x[0] for x in variants])
+#END tests
 if __name__ == "__main__":
    unittest.main()

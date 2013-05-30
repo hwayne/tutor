@@ -29,9 +29,10 @@ class Tutor():
 #Possible improvement: error dictionary, so you can select the errors.
 
     def buildErrorTree(self):
-        operrors = errors.operror(self.tokenstring)
-        assocerrors = errors.assocerror(self.tokenstring)
-        for elem in operrors+assocerrors:
+        allerrors =( errors.operror(self.tokenstring) +
+        errors.assocerror(self.tokenstring) +
+        errors.negerror(self.tokenstring))
+        for elem in allerrors:
             wronganswer = self.solve(elem[0])
             if wronganswer != self.solution and wronganswer not in self.errorlist.keys():
                 self.errorlist[wronganswer] = elem
