@@ -11,7 +11,7 @@ def tokencut(tokenstream, tokenpos, cutpoints):
     rpos = tokenpos+1
     while tokenstream[lpos] not in cutpoints and lpos+1 != 0:
         lpos -= 1
-    while tokenstream[rpos] not in cutpoints and rpos+1 != len(tokenstream):
+    while rpos != len(tokenstream) and tokenstream[rpos] not in cutpoints: 
         rpos += 1
     return (lpos,rpos)
 
@@ -36,8 +36,8 @@ def assocerror(problem):
         if problem[pos] == "MINUS":
             (x,y) = tokencut(problem, pos, tokens.ops)
             temp = copy(problem)
-            temp.insert(x+1, "LPAREN")
-            temp.insert(y+1, "RPAREN")
+            temp.insert(y, "RPAREN") #Goes before operator
+            temp.insert(x+1, "LPAREN") #Goes after operator. After RPAREN to not screw up order
             newproblems.append((temp, "association error"))
             pos = x+1
     return newproblems

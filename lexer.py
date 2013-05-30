@@ -24,4 +24,9 @@ class Lexer():
        #tokens.append(self.tokendict[temp[0]]) #edge case
        return tokens
 
+if __name__ == "__main__":
+    
+    L = Lexer()
 
+    while True:
+        print L.lexString(raw_input())

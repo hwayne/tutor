@@ -60,9 +60,8 @@ class Tutor():
 
 if __name__ == "__main__":
     T = Tutor()
-    #T.setup(raw_input("Enter arithmatic problem: "))
-    print "Problem: 5+3"
-    T.setup("5+3")
+    
+    T.setup(raw_input("Enter arithmatic problem: "))
     guess = int(raw_input("Enter solution: "))
     
     T.giveAnswer(guess)
