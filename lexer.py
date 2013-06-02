@@ -11,7 +11,7 @@ class Lexer():
     def clean(self, s):
         temp = s[:]
         for i, token in enumerate(s):
-            if(token == "MINUS") and (i == 0 or not(s[-i].isdigit() or s[-i] == "RPAREN")): #Holy SHIT.
+            if(token == "MINUS") and (i == 0 or not(s[i-1].isdigit() or s[i-1] == "RPAREN")): #Holy SHIT.
                 temp[i] = "NEG"
         return temp
 

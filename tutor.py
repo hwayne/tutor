@@ -24,24 +24,28 @@ class Tutor():
         solution = eval(self.parse(problemtokens)) #I love eval
         return solution
 
-#This function is a slight misnomer. It finds both the actual solution (no longer!) and builds the error tree.
-#It does it by calling the appropriate error functions on our token string. Then if the new problems give us a unique answer, stick it in. 
+#Builds a new error tree by calling the appropriate error functions on our token string. 
+#Then if the new problems give us a unique answer, stick it in. 
 #Possible improvement: error dictionary, so you can select the errors.
 
-    def buildErrorTree(self):
-        allerrors =( errors.operror(self.tokenstring) +
+
+    def buildErrorSpace(self):
+        allerrors =(
         errors.assocerror(self.tokenstring) +
-        errors.negerror(self.tokenstring))
+        errors.negerror(self.tokenstring) +errors.operror(self.tokenstring) )
         for elem in allerrors:
             wronganswer = self.solve(elem[0])
             if wronganswer != self.solution and wronganswer not in self.errorlist.keys():
                 self.errorlist[wronganswer] = elem
 
+#TODO: find all errors based off of other errors.
+    def buildRecursiveErrorSpace(self):
+        pass
     def setup(self, string):
         self.string = string
         self.tokenstring = self.lexer.lexString(string) 
         self.solution = self.solve(self.tokenstring)
-        self.buildErrorTree()
+        self.buildErrorSpace()
 
     def check(self, guess):
         return self.solution == int(guess)

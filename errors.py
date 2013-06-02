@@ -25,20 +25,22 @@ def operror(problem): #:: tokenlist -> [tokenlist]
             for op in tokens.ops:
                 temp = copy(problem)
                 temp[pos] = op
-                newproblems.append((temp, "op error"))
+                newproblems.append((temp, "wrong operator"))
 
     return newproblems
 
 #We walk backwards through the problem, tight binding around every minus operator
+#Also binds returns non-errors (ie replacing 2+2*2 with 2+(2*2)), but these are dropped for as they give correct answers
+
 def assocerror(problem):
     newproblems = []
     for pos in range(len(problem))[::-1]:
-        if problem[pos] == "MINUS":
+        if problem[pos] in tokens.ops :
             (x,y) = tokencut(problem, pos, tokens.ops)
             temp = copy(problem)
             temp.insert(y, "RPAREN") #Goes before operator
             temp.insert(x+1, "LPAREN") #Goes after operator. After RPAREN to not screw up order
-            newproblems.append((temp, "association error"))
+            newproblems.append((temp, "wrong order of operations"))
             pos = x+1
     return newproblems
     
