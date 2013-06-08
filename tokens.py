@@ -6,6 +6,7 @@ tokendict = {
 ,"/"   : "DIVIDE"
 ,"("   : "LPAREN"
 ,")"   : "RPAREN"
+
         }
 
 parsedict = dict([token[::-1] for token in tokendict.iteritems()]) #So we can recombine

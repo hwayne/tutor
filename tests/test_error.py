@@ -27,7 +27,12 @@ class TestError(unittest.TestCase):
         self.assertNotIn(["8","TIMES","2", "TIMES", "3"], [x[0] for x in variants]) #Not recursive... yet
 
     def testCut(self):
-        self.assertEquals(errors.tokencut(["MINUS", "4", "MINUS"], 1, tokens.ops), (0, 2))
+        self.assertEquals(errors.cut(["MINUS", "4", "MINUS"], 1, 1, tokens.ops), 2)
+
+    def testNestedCut(self):
+        self.assertEquals(errors.nestedcut(["LPAREN", "LPAREN", "RPAREN", "RPAREN"], 0, 1, ["RPAREN"], "LPAREN", "RPAREN"), 3)
+
+#Associative errors
 
     def testAssocWalk(self):
         variants = errors.assocerror(["8", "MINUS", "4", "MINUS", "2"])
@@ -41,11 +46,26 @@ class TestError(unittest.TestCase):
         variants = errors.assocerror(["8", "MINUS", "4", "MINUS", "2", "MINUS", "1"])
         self.assertIn(["8", "MINUS", "LPAREN", "4", "MINUS", "2", "RPAREN", "MINUS", "1"], [x[0] for x in variants])
 
+#Dropped negatives
+
     def testNegWalk(self):
         
         variants = errors.negerror(["NEG", "1", "PLUS", "NEG", '2'])
         self.assertIn(["1", "PLUS", '2'], [x[0] for x in variants])
         self.assertIn(["NEG", "1", "PLUS", '2'], [x[0] for x in variants])
+
+    #Parenthesis removal tests
+
+    def testDeParen(self):
+        variants = errors.parenerror(["1", "PLUS", "LPAREN", "2", "TIMES", "3", "RPAREN"])
+        self.assertIn(["1", "PLUS", '2', 'TIMES', '3'], [x[0] for x in variants])
+#Test get all errors
+
+    def testErrorSet(self):
+        variants = errors.geterrorset(["NEG", "1", "PLUS", "2"], errors.alloperatorerrors)
+        self.assertIn(["1", "PLUS", '2'], [x[0] for x in variants])
+        self.assertIn(["NEG", "1", "TIMES", '2'], [x[0] for x in variants])
+
 #END tests
 if __name__ == "__main__":
    unittest.main()

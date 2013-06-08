@@ -1,7 +1,7 @@
 import unittest
 import tutor
 
-class TestLexer(unittest.TestCase):
+class TestTutor(unittest.TestCase):
    
     def setUp(self):
         self.T = tutor.Tutor()
@@ -24,6 +24,8 @@ class TestLexer(unittest.TestCase):
         self.T.setup("3+5")
         self.assertIn(-2, self.T.errorlist.keys())
 
+    def testFirstElements(self):
+        self.assertTrue(self.T.firstElements([(1,2),(3,4)]), [1,3])
     def testCheck(self):
         self.T.setup("7+8")
         self.assertTrue(self.T.check(15))
@@ -32,5 +34,14 @@ class TestLexer(unittest.TestCase):
         self.T.setup("6+10")
         self.assertFalse(self.T.check(15))
 
+    def testRecursiveError(self):
+        self.T.setup("6+6+6", True)
+        self.assertIn(6*6*6, self.T.errorlist.keys())
+
+    def testComplexRecursiveError(self):
+        self.T.setup("2+4-(-2)", True)
+        self.assertIn(16, self.T.errorlist.keys())
+    
+        
 if __name__ == "__main__":
    unittest.main()
