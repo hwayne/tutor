@@ -1,5 +1,5 @@
 import unittest
-import lexer
+from lexers import lexer
 from tokens import parsedict
 
 class TestLexer(unittest.TestCase):

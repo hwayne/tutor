@@ -1,5 +1,5 @@
 import unittest
-import errors
+from errors import errors
 import tokens
 
 class TestError(unittest.TestCase):

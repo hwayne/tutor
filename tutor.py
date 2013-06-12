@@ -1,6 +1,6 @@
-from lexer import Lexer
+from lexers.lexer import Lexer
 import tokens
-import errors
+from errors import errors
 
 class Tutor():
 
