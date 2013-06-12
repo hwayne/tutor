@@ -26,12 +26,6 @@ class TestError(unittest.TestCase):
         self.assertIn(["8","PLUS","2", "TIMES", "3"], [x[0] for x in variants])
         self.assertNotIn(["8","TIMES","2", "TIMES", "3"], [x[0] for x in variants]) #Not recursive... yet
 
-    def testCut(self):
-        self.assertEquals(errors.cut(["MINUS", "4", "MINUS"], 1, 1, tokens.ops), 2)
-
-    def testNestedCut(self):
-        self.assertEquals(errors.nestedcut(["LPAREN", "LPAREN", "RPAREN", "RPAREN"], 0, 1, ["RPAREN"], "LPAREN", "RPAREN"), 3)
-
 #Associative errors
 
     def testAssocWalk(self):
