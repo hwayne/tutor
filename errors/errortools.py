@@ -14,3 +14,5 @@ def cut(tokenstream, tokenpos, cuttokens = ["RPAREN"], direction = 1, upstep = "
         elif elem == downstep: step -= 1
         if elem in cuttokens and step == 0: return tokenpos
 
+class Error(): #Tokentree
+    pass

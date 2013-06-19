@@ -9,7 +9,7 @@ tutor.py - holds the core code, the tutor class, to be run as main
 
 tokens.py - List of tokens. May or may not contain the token groups.
 lexer.py -  Takes a string and turns it into a list of tokens.
-eqntree.py - Takes a tokenlist and breaks it down into nested tuples. For example:
+tokentree.py - Takes a tokenlist and breaks it down into nested tuples. For example:
 
 [6, PLUS, 6, MINUS, 6] -> (MINUS, (PLUS, 6, 6), 6) 
 

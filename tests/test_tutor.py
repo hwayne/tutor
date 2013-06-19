@@ -41,6 +41,10 @@ class TestTutor(unittest.TestCase):
     def testComplexRecursiveError(self):
         self.T.setup("2+4-(-2)", True)
         self.assertIn(16, self.T.errorlist.keys())
+
+    def test_doesnt_break_nonrecursives(self):
+        self.T.setup("2+2*2", True)
+        self.assertIn(["LPAREN", '2', 'PLUS', '2', 'RPAREN', 'TIMES', '2'], [x[0] for x in self.T.errorlist.values()])
     
         
 if __name__ == "__main__":

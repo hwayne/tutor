@@ -55,16 +55,18 @@ class Tutor():
 #The entire error check system needs to be seriously reworked.
 
     def buildRecursiveErrorSpace(self):
-        newerrors =   errors.geterrorset(self.tokenstring, errors.alloperatorerrors)
-        newerrors = self.addUniqueErrors(newerrors) #Gettem out of the way, + reduce search space 
-      
-        while newerrors != []:
+        newerrors = [(self.tokenstring,"")]
+        #newerrors = self.addUniqueErrors(newerrors) #Gettem out of the way, + reduce search space 
+        #self.buildErrorSpace() #first round 
+
+        while True: 
             for elem in newerrors[:]:
                 nexterrors =  errors.geterrorset(elem[0], errors.alloperatorerrors)
 
                 nexterrors = self.addUniqueErrors([(x[0], elem[1]+", "+x[1]) for x in nexterrors])
                 newerrors += nexterrors
                 newerrors.remove(elem)
+            if newerrors == []: break
         
     def setup(self, string, recursive = False):
         self.string = string
